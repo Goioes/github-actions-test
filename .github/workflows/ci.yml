@@ -1,7 +1,9 @@
 name: CI Test
 
 on: [push, pull_request]
-
+permissions:
+  contents: write
+  
 jobs:
   test:
     strategy:
