@@ -28,13 +28,17 @@ jobs:
 
       - name: Auto-format code (ruff)
         run: uv run ruff format .
+      
+      - name: Debug Git Status
+        run: |
+          git status
+          git diff --stat
 
       - name: Commit formatted code
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "chore: auto-format code with ruff" || echo "No changes to commit"
+          git commit -am "chore: auto-format code with ruff [skip actions]" || echo "No changes to commit"
           git push
 
       - name: Run Linter (ruff)
