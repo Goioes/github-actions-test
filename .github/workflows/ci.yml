@@ -26,7 +26,21 @@ jobs:
         run: uv venv
 
       - name: Restore uv dependencies
-        run: uv pip install pytest
+        run: uv pip install pytest ruff
+
+      - name: Auto-format code (ruff)
+        run: uv run ruff format .
+
+      - name: Commit formatted code
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: auto-format code with ruff" || echo "No changes to commit"
+          git push
+
+      - name: Run Linter (ruff)
+        run: uv run ruff check .
 
       - name: Run Tests
         run: uv run pytest
