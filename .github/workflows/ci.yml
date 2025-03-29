@@ -19,7 +19,7 @@ jobs:
         run: pip install uv
 
       - name: Create virtual environment
-        run: uv init
+        run: uv venv
 
       - name: Restore uv dependencies
         run: uv pip install pytest
